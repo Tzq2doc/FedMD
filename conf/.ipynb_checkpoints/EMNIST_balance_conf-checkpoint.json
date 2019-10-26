@@ -1,0 +1,12 @@
+{
+    "N_parties": 10,
+    "N_samples_per_class": 3,
+    "N_alignment": 5000, 
+    "private_classes": [10, 11, 12, 13, 14, 15],
+    "public_classes": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "is_show": False,
+    "N_round": 13,
+    "N_rounds_alignment": 1, 
+    "N_rounds_priv_training": 10,
+    "EMNIST_dir": "D:\DataSets\EMNIST\emnist-letters.mat"
+}
