@@ -14,6 +14,6 @@
               ],
     "train_params": {"min_delta": 0.001, "patience": 3,
                      "batch_size": 128, "epochs": 1, "is_shuffle": True, 
-                     "verbose": 1}
-    
+                     "verbose": 1},
+    "save_directory": "MNIST/"
 }
