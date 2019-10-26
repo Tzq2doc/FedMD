@@ -11,7 +11,8 @@ def parseArg():
     parser.add_argument('-conf', metavar='conf_file', nargs=1, 
                         help='the config file for training, \
                         for training on MNIST, the default conf_file is ./conf/pretrain_MNIST.json, \
-                        for training on CIFAR, the default conf_file is ./conf/pretrain_CIFAR.json.')
+                        for training on CIFAR, the default conf_file is ./conf/pretrain_CIFAR.json.'
+                       )
 
     conf_file = "./conf/pretrain_MNIST.json"
     
@@ -63,6 +64,7 @@ if __name__ == "__main__":
     dataset = conf_dict["data_type"]
     model_config = conf_dict["models"]
     train_params = conf_dict["train_params"]
+    save_dir = conf_dict["save_directory"]
     del conf_dict
     
     
@@ -84,6 +86,6 @@ if __name__ == "__main__":
         pretrain_models.append(tmp)
     
     train_models(pretrain_models, X_train, y_train, X_test, y_test, 
-                 save_dir = "", save_names = None, is_show=True,
+                 save_dir = save_dir, save_names = None, is_show=True,
                  **train_params
                  )
