@@ -1,3 +1,4 @@
+import os
 import sys
 import argparse
 from tensorflow.keras.callbacks import EarlyStopping
@@ -26,7 +27,7 @@ def parseArg():
 
 def train_models(models, X_train, y_train, X_test, y_test, 
                  min_delta = 0.001, patience = 3, batch_size = 128, epochs = 20, is_shuffle=True, verbose = 1, 
-                 is_show = False, save_dir = "", save_names = None):
+                 is_show = False, save_dir = "./", save_names = None):
     '''
     Train an array of models on the same dataset. 
     We use early termination to speed up training. 
@@ -42,10 +43,19 @@ def train_models(models, X_train, y_train, X_test, y_test,
                  )
         
         resulting_val_acc.append(model.history.history["val_acc"][-1])
+        
+        save_dir_path = os.path.abspath(save_dir)
+        #make dir
+        try:
+            os.makedirs(save_dir_path)
+        except OSError as e:
+            if e.errno != errno.EEXIST:
+                raise    
+        
         if save_names is None:
             file_name = save_dir + "model_{0}".format(n) + ".h5"
         else:
-            file_name = save_dir + name[n] + ".h5"
+            file_name = save_dir + save_name[n] + ".h5"
         model.save(file_name)
     
     if is_show:
