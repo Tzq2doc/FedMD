@@ -1,4 +1,5 @@
 import os
+import errno
 import sys
 import argparse
 from tensorflow.keras.callbacks import EarlyStopping
@@ -26,8 +27,10 @@ def parseArg():
 
 
 def train_models(models, X_train, y_train, X_test, y_test, 
+                 is_show = False, save_dir = "./", save_names = None,
+                 early_stopping = True,
                  min_delta = 0.001, patience = 3, batch_size = 128, epochs = 20, is_shuffle=True, verbose = 1, 
-                 is_show = False, save_dir = "./", save_names = None):
+                 ):
     '''
     Train an array of models on the same dataset. 
     We use early termination to speed up training. 
@@ -36,11 +39,17 @@ def train_models(models, X_train, y_train, X_test, y_test,
     resulting_val_acc = []
     for n, model in enumerate(models):
         print("Training model ", n)
-        model.fit(X_train, y_train, 
-                  validation_data = [X_test, y_test],
-                  callbacks=[EarlyStopping(monitor='val_acc', min_delta=min_delta, patience=patience)],
-                  batch_size = batch_size, epochs = epochs, shuffle=is_shuffle, verbose = verbose
-                 )
+        if early_stopping:
+            model.fit(X_train, y_train, 
+                      validation_data = [X_test, y_test],
+                      callbacks=[EarlyStopping(monitor='val_acc', min_delta=min_delta, patience=patience)],
+                      batch_size = batch_size, epochs = epochs, shuffle=is_shuffle, verbose = verbose
+                     )
+        else:
+            model.fit(X_train, y_train, 
+                      validation_data = [X_test, y_test],
+                      batch_size = batch_size, epochs = epochs, shuffle=is_shuffle, verbose = verbose
+                     )
         
         resulting_val_acc.append(model.history.history["val_acc"][-1])
         
