@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from sklearn.model_selection import StratifiedShuffleSplit
 from tensorflow.keras.datasets import cifar10, cifar100, mnist
 import scipy.io as sio
 
@@ -113,3 +114,23 @@ def generate_bal_private_data(X, y, N_parties = 10, classes_in_use = range(11),
     total_priv_data["X"] = X[combined_idx]
     total_priv_data["y"] = y[combined_idx]
     return priv_data, total_priv_data
+
+
+def generate_alignment_data(X, y, N_alignment = 3000):
+    
+    split = StratifiedShuffleSplit(n_splits=1, train_size= N_alignment)
+    if N_alignment == "all":
+        alignment_data = {}
+        alignment_data["idx"] = np.arange(y.shape[0])
+        alignment_data["X"] = X
+        alignment_data["y"] = y
+        return alignment_data
+    for train_index, _ in split.split(X, y):
+        X_alignment = X[train_index]
+        y_alignment = y[train_index]
+    alignment_data = {}
+    alignment_data["idx"] = train_index
+    alignment_data["X"] = X_alignment
+    alignment_data["y"] = y_alignment
+    
+    return alignment_data

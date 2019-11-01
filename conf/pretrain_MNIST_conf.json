@@ -12,11 +12,11 @@
                {"model_type": "3_layer_CNN", "params": {"n1": 128, "n2": 128, "n3": 128, "dropout_rate": 0.3}},
                {"model_type": "3_layer_CNN", "params": {"n1": 128, "n2": 128, "n3": 192, "dropout_rate": 0.3}}
               ],
-    "train_params": {"min_delta": 0.001, "patience": 5,
+    "train_params": {"min_delta": 0.001, "patience": 3,
                      "batch_size": 128, "epochs": 20, "is_shuffle": True, 
                      "verbose": 1},
-    "save_directory": "pretrained_from_MNIST/",
-    "saved_names" : ["CNN_128_256", "CNN_128_384", "CNN_128_512", "CNN_256_256", "CNN_256_512", 
+    "save_directory": "./pretrained_from_MNIST/",
+    "save_names" : ["CNN_128_256", "CNN_128_384", "CNN_128_512", "CNN_256_256", "CNN_256_512", 
                     "CNN_64_128_256", "CNN_64_128_192", "CNN_128_192_256", "CNN_128_128_128", "CNN_128_128_192"],
     "early_stopping" : True,
 }
