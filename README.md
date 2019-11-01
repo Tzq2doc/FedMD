@@ -1,5 +1,6 @@
 # FedMD
-FedMD: Heterogenous Federated Learning via Model Distillation
+FedMD: Heterogenous Federated Learning via Model Distillation. 
+Preprint on https://arxiv.org/abs/1910.03581.
 
 ## Run scripts on Google Colab
 
